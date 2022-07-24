@@ -25,6 +25,29 @@ const socials = (props) => {
 
   // const { phoneNumber, email } = Cookies.get()
 
+  const downloadImage = async () => {
+    const toDataURL = async (url) => {
+      return fetch(url)
+        .then((response) => {
+          return response.blob()
+        })
+        .then((blob) => {
+          return URL.createObjectURL(blob)
+        })
+    }
+
+    // note the image url needs to be CORS-disabled
+    const bulbaUrl =
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png'
+
+    const a = document.createElement('a')
+    a.href = await toDataURL(bulbaUrl)
+    a.download = 'myImage.png'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
+
   return (
     <Center>
       <Grid templateColumns='repeat(6, 0fr)' gap={1}>
@@ -33,6 +56,7 @@ const socials = (props) => {
             aria-label='download'
             size='lg'
             icon={<FaCloudDownloadAlt />}
+            onClick={downloadImage}
           />
         </GridItem>
         <GridItem>
