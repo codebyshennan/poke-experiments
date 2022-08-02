@@ -3,10 +3,33 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Widget {
-  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+model Team {
+  name             String?
+  racer_1          String?   @db.Uuid
+  racer_2          String?   @db.Uuid
+  cardCount        Int?      @db.SmallInt
+  totalTimeElapsed Int?      @db.SmallInt
+  timeElapsedLast  Int?      @db.SmallInt
+  updatedAt        DateTime? @db.Timestamptz(6)
+  createdAt        DateTime? @db.Timestamptz(6)
+  imageUrl         String?
+  id               String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  Racer            Racer[]
+}
+
+model Racer {
+  id         String    @id @db.Uuid
+  name       String?
+  email      String?
+  phone      BigInt?
+  cards      Json?     @db.Json
+  role       String?
+  updatedAt  DateTime? @db.Timestamptz(6)
+  teamId     String?   @db.Uuid
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  Team       Team?     @relation(fields: [teamId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
