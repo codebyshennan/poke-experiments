@@ -2,4 +2,4 @@ import React from 'react'
 
 export async function getStaticProps() {}
 
-export default Overview = (props) => {}
+export default Mission_2 = (props) => {}
