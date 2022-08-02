@@ -2,4 +2,4 @@ import React from 'react'
 
 export async function getStaticProps() {}
 
-export default SpectatorNav = (props) => {}
+export default Livefeed = (props) => {}

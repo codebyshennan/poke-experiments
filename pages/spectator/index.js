@@ -1,10 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-const index = (props) => {
-  return <div>index</div>
-}
+export async function getStaticProps() {}
 
-index.propTypes = {}
-
-export default index
+export default index = (props) => {}
